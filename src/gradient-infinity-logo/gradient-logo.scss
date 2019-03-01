@@ -1,0 +1,47 @@
+$do: 12.5em;
+$ro: 0.5 * $do;
+$ri: 0.525 * $ro;
+
+@function gl($start: 0, $range: 180, $steps: 8) {
+  $gl: ();
+  $unit: $range/$steps;
+
+  @for $i from 0 through $steps {
+    $gl: $gl, hsl($start, 85%, 57%);
+    $start: $start + $unit;
+  }
+
+  @return $gl;
+}
+
+.infinity {
+  display: flex;
+  transform-style: preserve-3d;
+
+  &:before,
+  &:after {
+    content: "";
+    margin: 0 (-0.5 * ($ro - $ri));
+    width: $do;
+    height: $do;
+    transform: rotateX(1deg) rotate(90deg);
+    background: conic-gradient(gl(180, -180));
+    border-radius: 50%;
+    mask: radial-gradient(transparent calc(#{$ri} - 1px), #000 $ri);
+    box-shadow: inset 0 -0.375em rgba(#fff, 0.5);
+  }
+  &:after {
+    background: conic-gradient(gl(180, 180));
+    transform: rotateX(-1deg) rotate(-90deg);
+    box-shadow: inset -0.375em 0 rgba(#fff, 0.5);
+  }
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(at 0 0, #575757, #191919);
+}

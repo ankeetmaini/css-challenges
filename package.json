@@ -7,5 +7,8 @@
     "parcel": "^1.11.0",
     "parcel-bundler": "^1.11.0",
     "sass": "^1.17.2"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.4.9"
   }
 }
