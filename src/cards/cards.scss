@@ -1,0 +1,34 @@
+h1 {
+  margin: 4px 8px;
+}
+
+.cards-container {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  background: grey;
+}
+
+.card {
+  padding: 10px;
+  border-radius: 10px;
+  height: 400px;
+  box-shadow: 3px 1px 3px 2px #4b494996;
+  background: #fff;
+  transition: transform 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  &:not(:first-child) {
+    margin-left: -5rem;
+  }
+
+  &:hover,
+  &:focus-within {
+    transform: translateY(-40px) scale(1.1);
+    background: gold;
+  }
+
+  &:hover ~ .card,
+  &:focus-within ~ .card {
+    transform: translateX(6rem);
+  }
+}
