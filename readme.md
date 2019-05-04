@@ -11,4 +11,4 @@ A place to code your code-pens but in your fav editor.
 
 - npm run dev -- -c <key-number-added-above>
 
-> For example `npm run dev -- -c 1` will start `Challenge 1` at http://localhost:1234
+> For example `yarn dev -c 1` will start `Challenge 1` at http://localhost:1234
