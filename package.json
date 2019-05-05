@@ -10,5 +10,8 @@
   },
   "dependencies": {
     "autoprefixer": "^9.4.9"
-  }
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
 }

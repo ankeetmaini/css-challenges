@@ -1,34 +1,40 @@
+.big-button {
+  background: goldenrod;
+  font-size: 20px;
+}
 .container {
-  width: 70%;
-  margin: 10px auto;
+  margin: 10px;
   .result {
-    padding: 10px;
-    box-shadow: 3px 2px 4px 0px #ccc;
+    margin: 20px 0;
   }
+  .content {
+    padding: 4px 8px;
+    box-shadow: 2px 2px 5px 0px #ccc;
+  }
+}
 
-  .relative {
-    position: relative;
-  }
+.relative {
+  position: relative;
+}
 
-  .abs {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    opacity: 0.6;
-    z-index: -1;
-    will-change: transform;
-    transition: transform 2s ease-out 0s, opacity 1.2s ease-out 0s;
-  }
+.absolute {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.7;
+  z-index: -1;
+  will-change: transform;
+  transition: transform 1.2s ease-out 0s, opacity 1.2s ease-out 0s;
+}
 
-  .slide-left {
-    transform: translateX(-100px);
-  }
-  .slide-right {
-    transform: translateX(100px);
-  }
-  .fade {
-    opacity: 0;
-  }
+.fade {
+  opacity: 0;
+}
+.slide-left {
+  transform: translateX(-100px);
+}
+.slide-right {
+  transform: translateX(100px);
 }

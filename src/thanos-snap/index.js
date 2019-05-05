@@ -1,42 +1,55 @@
 import "./thanos-snap.scss";
 import html from "./html-dump";
+import randomize from "./randomize";
 
 document.body.innerHTML = html;
 
-const button = document.querySelector("#snap");
-
-button.addEventListener("click", () => {
-  const results = [...document.querySelectorAll(".result")];
-  results.forEach((element, i) => {
-    // only alternate elements
-    if (i % 2 === 0) {
-      const parent = element.parentElement;
-      const clone1 = element.cloneNode(true);
-      const clone2 = element.cloneNode(true);
-
-      parent.classList.add("relative");
-
-      nextFrame(() => {
-        clone1.classList.add("abs");
-        clone2.classList.add("abs");
-      });
-
-      nextFrame(() => {
-        parent.append(clone1, clone2);
-      });
-
-      nextFrame(() => {
-        element.style.visibility = "hidden";
-      });
-
-      setTimeout(() => {
-        clone1.classList.add("slide-left", "fade");
-        clone2.classList.add("slide-right", "fade");
-      });
-    }
-  });
+const snapButton = document.querySelector(".big-button");
+snapButton.addEventListener("click", () => {
+  const allSearchElements = [...document.querySelectorAll(".content")];
+  const half = randomize(allSearchElements);
+  // start the chain reaction
+  half.reduce(async (promise, curr) => {
+    await promise;
+    return scrollTo(curr).then(() => vanish(curr));
+  }, Promise.resolve());
 });
 
-const nextFrame = fn => {
-  window.requestAnimationFrame(fn);
+const scrollTo = node =>
+  promisify(() => node.scrollIntoView({ behavior: "smooth" }));
+
+const promisify = fn =>
+  new Promise(res => {
+    fn();
+    setTimeout(res, 1400);
+  });
+
+const removeNode = node => {
+  return new Promise(res => {
+    node.addEventListener("transitionend", () => {
+      node.remove();
+      res();
+    });
+  });
+};
+
+const vanish = async searchElement => {
+  const parent = searchElement.parentNode;
+  const clone1 = searchElement.cloneNode(true);
+  const clone2 = searchElement.cloneNode(true);
+  const p1 = removeNode(clone1);
+  const p2 = removeNode(clone2);
+  parent.classList.add("relative");
+  clone1.classList.add("absolute");
+  clone2.classList.add("absolute");
+
+  // finally append to parent
+  parent.append(clone1, clone2);
+
+  searchElement.classList.add("fade");
+  setTimeout(() => {
+    clone1.classList.add("slide-left", "fade");
+    clone2.classList.add("slide-right", "fade");
+  }, 0);
+  return Promise.all([p1, p2]);
 };
